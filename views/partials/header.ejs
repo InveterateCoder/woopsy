@@ -1,0 +1,14 @@
+<header>
+    <nav class="navbar navbar-expand navbar-light bg-light mb-5">
+        <a class="navbar-brand" href="/">AG Test</a>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link<%= active == 'Home' ? ' active' : '' %>" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link<%= active == 'About' ? ' active' : '' %>" href="/about">About</a>
+            </li>
+        </ul>
+    </nav>
+    <h2 class="ml-5"><%= active %></h2>
+</header>
