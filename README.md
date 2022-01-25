@@ -11,4 +11,4 @@ _Код желательно опубликовать на Github или Gitlab.
 3. run the application with ```npm start```;
 4. go to **localhost:5002** or other port if you have redifined;
 
-_Application runs in the development mode and for the test purpose only._
+_Application runs in the development mode and for the testing purpose only._
