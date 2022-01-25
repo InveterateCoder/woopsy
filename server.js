@@ -12,7 +12,8 @@ pullNewUsers();
 schedule.scheduleJob("*/1 * * * *", pullNewUsers);
 
 const port = process.env.PORT || 5002;
-express().use(express.json())
+express()
+    .use(express.json())
     .set("view engine", "ejs")
     .use("/", htmlRouter)
     .use("/api", apiRouter)

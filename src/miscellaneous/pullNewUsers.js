@@ -7,6 +7,8 @@ const format = require("pg-format");
 
 const settingsFile = path.resolve(__dirname, "pullNewUsers.dat");
 
+
+// getting current pulling page and last-saved id
 async function getSettings() {
     return await new Promise((resolve, reject) => {
         fs.readFile(settingsFile, { encoding: "utf-8" }, (err, data) => {
@@ -23,6 +25,8 @@ async function getSettings() {
     });
 }
 
+// saving current pulling page and last-saved id
+// filesystem has been chosen for simplicity but might be not the best option in production
 async function saveNewSettings(page, id) {
     return await new Promise((resolve, reject) => {
         fs.writeFile(
@@ -37,6 +41,7 @@ async function saveNewSettings(page, id) {
     });
 }
 
+// poll new users according to last processed state and if there are new users saves to db
 async function pullNewUsers() {
     const [currentPage, lastSavedId] = await getSettings(),
         users = [];
