@@ -2,11 +2,32 @@
 <html lang="en">
   <head>
     <%- include("../partials/head", {title: "Home"}); %>
+    <script>
+      function onNameChange(value) {
+        console.log(value);
+      }
+    </script>
   </head>
   <body class="container">
     <%- include("../partials/header", {active: "Home"}); %>
     <main>
-        
+      <div class="input-group mb-4">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Name</span>
+        </div>
+        <input
+          id="formName"
+          oninput="onNameChange(this.value)"
+          name="name"
+          type="text"
+          class="form-control"
+        />
+      </div>
+      <ul class="list-group">
+        <li class="list-group-item">First item</li>
+        <li class="list-group-item">Second item</li>
+        <li class="list-group-item">Third item</li>
+      </ul>
     </main>
   </body>
 </html>
