@@ -3,9 +3,33 @@
   <head>
     <%- include("../partials/head", {title: "Home"}); %>
     <script>
-      function onNameChange(value) {
-        console.log(value);
+      function debounce(fn, ms) {
+        let timoutHandle = null;
+        return function wrapper(...data) {
+          clearTimeout(timoutHandle);
+          timoutHandle = setTimeout(() => fn(...data), ms);
+        };
       }
+      async function getList(value) {
+        const resp = await fetch("/api/list", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ name: value }),
+        });
+        if (!resp.ok) return;
+        const { list = [] } = (await resp.json()) || {};
+        document.getElementById("uiList").replaceChildren(
+          ...list.map((name) => {
+            const item = document.createElement("li");
+            item.className = "list-group-item";
+            item.appendChild(document.createTextNode(name));
+            return item;
+          })
+        );
+      }
+      const onNameChange = debounce(getList, 700);
     </script>
   </head>
   <body class="container">
@@ -18,16 +42,11 @@
         <input
           id="formName"
           oninput="onNameChange(this.value)"
-          name="name"
           type="text"
           class="form-control"
         />
       </div>
-      <ul class="list-group">
-        <li class="list-group-item">First item</li>
-        <li class="list-group-item">Second item</li>
-        <li class="list-group-item">Third item</li>
-      </ul>
+      <ul id="uiList" class="list-group"></ul>
     </main>
   </body>
 </html>
